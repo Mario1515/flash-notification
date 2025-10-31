@@ -36,9 +36,23 @@ class NotificationManager
         $this->push($type, $message, $title, $duration);
     }
 
+    public function batch(array $notifications): void
+    {
+        foreach ($notifications as $n) {
+            $this->push(
+                $n['type'] ?? 'info',
+                $n['message'] ?? '',
+                $n['title'] ?? null,
+                $n['duration'] ?? self::DEFAULT_DURATION
+            );
+        }
+    }
+
     protected function push(string $type, string $message, ?string $title = null, int $duration = self::DEFAULT_DURATION): void
     {
-        $this->buffer[] = [
+        $existing = Session::get('notifications', []);
+
+        $existing[] = [
             'id'       => Str::uuid()->toString(),
             'type'     => $type,
             'title'    => $title,
@@ -46,6 +60,6 @@ class NotificationManager
             'duration' => $duration,
         ];
 
-        Session::flash('notifications', $this->buffer);
+        Session::put('notifications', $existing); 
     }
 }
