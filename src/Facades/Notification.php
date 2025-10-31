@@ -4,7 +4,7 @@ namespace Mario\FlashNotification\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Notification extends Facade
+class FlashNotification extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
