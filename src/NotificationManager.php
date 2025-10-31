@@ -2,15 +2,14 @@
 
 namespace Mario\FlashNotification;
 
-use Carbon\Carbon;
-
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 
 class NotificationManager
 {
     public const DEFAULT_DURATION = 4000;
+
+    protected array $buffer = [];
 
     public function success(string $message, ?string $title = null, int $duration = self::DEFAULT_DURATION): void
     {
@@ -39,17 +38,14 @@ class NotificationManager
 
     protected function push(string $type, string $message, ?string $title = null, int $duration = self::DEFAULT_DURATION): void
     {
-        $notifications = Session::get('notifications', []);
-
-        $notifications[] = [
-            'id'       => (string) Str::uuid(),
+        $this->buffer[] = [
+            'id'       => Str::uuid()->toString(),
             'type'     => $type,
             'title'    => $title,
             'message'  => $message,
             'duration' => $duration,
-            'time'     => Carbon::now()->toISOString(),
         ];
 
-        Session::flash('notifications', Arr::wrap($notifications));
+        Session::flash('notifications', $this->buffer);
     }
 }
