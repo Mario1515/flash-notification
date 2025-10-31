@@ -1,13 +1,8 @@
 {
     "name": "mario1515/flash-notification",
-    "description": "A Laravel facade for flash messages (success, error, info, etc.)",
+    "description": "A Laravel facade for multi flash messages (success, error, info, etc.)",
     "type": "library",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Mario\\FlashNotification\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Mario Petkov",
@@ -16,7 +11,15 @@
     ],
     "require": {
         "php": ">=8.1",
-        "illuminate/support": "^11.0 || ^12.0 || ^13.0"
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mario\\FlashNotification\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "extra": {
         "laravel": {
@@ -24,8 +27,10 @@
                 "Mario\\FlashNotification\\FlashNotificationServiceProvider"
             ],
             "aliases": {
-                "FlashNotification": "Mario\\FlashNotification\\Facades\\FlashNotification"
+                "Notification": "Mario\\FlashNotification\\Facades\\Notification"
             }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
