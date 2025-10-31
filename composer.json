@@ -1,5 +1,5 @@
 {
-    "name": "mario/flash-notification",
+    "name": "mario1515/flash-notification",
     "description": "A simple Laravel facade for flash messages (success, error, info, etc.)",
     "type": "library",
     "license": "MIT",
